@@ -4,20 +4,22 @@
 {% block content %}
 
     <h1>List of endangered animals</h1>
+        {% if form %}
+            <form>
+                {{ form.as_p }}
+                <input type="submit" value="filter">
+            </form>
+        {%  endif %}
+        <ul>
+        {%  for animal in object_list %}
+            <li>
+                <strong>{{ animal }}</strong>
+                <p>Population: {{ animal.population }}</p>
+                <p>Description: {{ animal.description }}</p>
+                <p>Extintion Level: {{ animal.extinction_level.name }}</p>
+            </li>
+        {% endfor %}
 
-<ul>
-
-    {%  for animal in names %}
-    <li>
-        <strong>{{ animal }}</strong>
-        <p>Population: {{ animal.population }}</p>
-        <p>Description: {{ animal.description }}</p>
-        <p>Extintion Level: {{ animal.extinction_level.name }}</p>
-    </li>
-    {% endfor %}
-    <!-- Add more items following the same structure -->
-
-</ul>
-
+        </ul>
 
 {%  endblock %}

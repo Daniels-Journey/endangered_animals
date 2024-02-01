@@ -17,7 +17,7 @@ class Species(models.Model):
     extinction_level = models.ForeignKey(ExtinctionLevel, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name}, population: {self.population}, threat_level: {self.extinction_level}, description: {self.description}'
+        return f'{self.name}'
 
 
 class Badge(models.Model):

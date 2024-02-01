@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ConservationForum.views import HomeView, SpeciesView, ForumView, PostView
+from ConservationForum.views import HomeView, SpeciesView, ForumView, AddPostView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
     path('species/', SpeciesView.as_view(), name='specList'),
     path('forum', ForumView.as_view(), name='forum'),
-    path('addpost', PostView.as_view(), name='addPost'),
+    path('addpost', AddPostView.as_view(), name='addPost'),
 ]
