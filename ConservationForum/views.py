@@ -34,6 +34,10 @@ class PostView(View):
         return render(request, 'AddPost.html', context={'postform':form})
 
     def post(self,request):
-        names = request.POST.get('name')
-        extinctionlvl = ExtinctionLevel.objects.create(name=names)
-        return redirect('addPost')
+        form = PostForm(request.POST)
+        if form.is_valid():
+            names = form.cleaned_data['name']
+            extinctionlvl = ExtinctionLevel.objects.create(name=names)
+            return redirect('addPost')
+
+        return render(request, 'AddPost.html', context={'postform': form})
