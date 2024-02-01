@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
-
+from ConservationForum.models import Species, ExtinctionLevel
+from ConservationForum.forms import PostForm
 
 class HomeView(View):
     HomeData = {
@@ -18,4 +19,21 @@ class SpeciesView(View):
     }
 
     def get(self, request):
-        return render(request, 'SpecList.html', context=self.SpeciesData)
+        lst = Species.objects.all()
+        return render(request, 'SpecList.html', context={'names':lst})
+
+
+class ForumView(View):
+    def get(self, request):
+        return render(request, 'Forum.html')
+
+
+class PostView(View):
+    def get(self, request):
+        form = PostForm()
+        return render(request, 'AddPost.html', context={'postform':form})
+
+    def post(self,request):
+        names = request.POST.get('name')
+        extinctionlvl = ExtinctionLevel.objects.create(name=names)
+        return redirect('addPost')

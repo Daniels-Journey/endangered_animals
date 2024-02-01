@@ -17,7 +17,7 @@ class Species(models.Model):
     extinction_level = models.ForeignKey(ExtinctionLevel, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.name}, population: {self.population}, threat_level: {self.extinction_level}, description: {self}'
+        return f'{self.name}, population: {self.population}, threat_level: {self.extinction_level}, description: {self.description}'
 
 
 class Badge(models.Model):
@@ -27,20 +27,21 @@ class Badge(models.Model):
         return self.title
 
 
-class Post(models.Model):
-    text = models.TextField()
-    date = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.text}, topic: {self.topic.title}, date: {self.date}, user: {self.user.name}'
-
 
 class Topic(models.Model):
     title = models.CharField(max_length=64)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    species = models.ForeignKey(Species, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.title}, post: {self.post.text}, species: {self.species}'
+        return f'{self.title}'
+
+
+
+class Post(models.Model):
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    text = models.TextField()
+    date = models.DateField(auto_now_add=True)
+    species = models.ManyToManyField(Species)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'topic: {self.topic.title}, text: {self.text} date: {self.date}, species: {", ".join(species.name for species in self.species.all())}'

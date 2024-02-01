@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Choose a category and create your post</h1>
+
+    <form method="POST">
+    {% csrf_token %}
+        {{ postform.as_p }}
+
+</form>
+
+
+{%  endblock %}
