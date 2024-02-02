@@ -1,5 +1,5 @@
-
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -10,9 +10,9 @@
                 <input type="submit" value="filter">
             </form>
         {%  endif %}
-        <ul>
+        <ul class="list-group">
         {%  for animal in object_list %}
-            <li>
+            <li class="list-group-item">
                 <strong>{{ animal }}</strong>
                 <p>Population: {{ animal.population }}</p>
                 <p>Description: {{ animal.description }}</p>
