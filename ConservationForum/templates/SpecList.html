@@ -17,6 +17,10 @@
                 <p>Population: {{ animal.population }}</p>
                 <p>Description: {{ animal.description }}</p>
                 <p>Extintion Level: {{ animal.extinction_level.name }}</p>
+
+{#                <img src="{{ MEDIA_URL }}speciesloop/{{animal.name|urlencode }}.jpg">#}
+                  <img src="{% static 'media/speciesloop/'|add:animal.name|urlencode %}.jpg">
+                    
             </li>
         {% endfor %}
 
