@@ -1,6 +1,5 @@
 from django import forms
-from ConservationForum.models import Topic, Species, Post
-
+from ConservationForum.models import Topic, Species, Post, ExtinctionLevel
 
 
 # class PostForm(forms.Form):
@@ -21,3 +20,5 @@ class AddPostForm(forms.ModelForm):
 
 class SpeciesSearchForm(forms.Form):
     name = forms.CharField(max_length=50, required=False)
+    # population = forms.IntegerField(required=False)
+    extinction_level = forms.ModelChoiceField(queryset=ExtinctionLevel.objects.all(), required=False)

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
     <h1>Welcome to Wildlife Biodiversity Project</h1>
@@ -11,5 +11,9 @@ Aenean lacus leo, porta vitae sem sit amet, maximus faucibus risus. Nullam et en
 
 In hac habitasse platea dictumst. Nullam sollicitudin erat quam, sit amet eleifend lorem fermentum a. Vestibulum non vulputate nulla. Vivamus nunc risus, imperdiet sed euismod quis, cursus vitae orci. Donec pretium elementum justo vitae porta. Nullam dignissim dolor vitae ullamcorper tincidunt. Aenean ornare maximus sodales. Pellentesque efficitur porta varius. Nunc ligula tortor, condimentum id condimentum id, convallis et sem.
     </p>
+
+    <div>
+    <img src="{% static 'image_processing20190402-4-3ssid9.jpg' %}">
+</div>
 
 {%  endblock %}

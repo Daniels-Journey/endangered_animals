@@ -12,8 +12,8 @@
         {%  endif %}
         <ul class="list-group">
         {%  for animal in object_list %}
-            <li class="list-group-item">
-                <strong>{{ animal }}</strong>
+            <li class="list-group-item ">
+                <strong class="aa">{{ animal }}</strong>
                 <p>Population: {{ animal.population }}</p>
                 <p>Description: {{ animal.description }}</p>
                 <p>Extintion Level: {{ animal.extinction_level.name }}</p>

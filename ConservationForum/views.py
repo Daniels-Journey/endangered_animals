@@ -30,7 +30,10 @@ class SpeciesView(ListView):
         form = SpeciesSearchForm(self.request.GET)
         if form.is_valid():
             name = form.cleaned_data['name']
+            extinction_level = form.cleaned_data['extinction_level']
             queryset = queryset.filter(name__icontains=name)
+            if extinction_level is not None:
+                queryset = queryset.filter(extinction_level=extinction_level)
         return queryset
 
 
