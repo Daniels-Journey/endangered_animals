@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h2>Create User</h2>
+  <form method="post">
+    {% csrf_token %}
+
+      {{ signupform.username.label_tag }}
+      {{ signupform.username }}
+      <br>
+
+      {{ signupform.email.label_tag }}
+      {{ signupform.email }}
+      <br>
+
+      {{ signupform.password.label_tag }}
+      {{ signupform.password }}
+      <br>
+
+      {{ signupform.repeat_password.label_tag }}
+      {{ signupform.repeat_password }}
+      <br>
+
+    <button type="submit">Login</button>
+  </form>
+
+{%  endblock %}

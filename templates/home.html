@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-    <h1>Welcome to Wildlife Biodiversity Project</h1>
+    <h1>Welcome to Wildlife Biodiversity Project, {% if user.is_authenticated %} {{  user.username }}! <a href="{% url 'logout_view' %}">Logout</a>{% else %}dear Stranger! <a href="{% url 'login_view' %}">Login</a> <a href="{% url 'register_view' %}">Register</a>{% endif %}</h1>
 
     <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum risus sed mauris vulputate varius. Integer ac velit nulla. Curabitur lobortis ornare cursus. Nulla sed velit in lacus aliquet pellentesque. Cras laoreet tempor velit, ut placerat massa sodales sed. Proin scelerisque mattis mauris vel tempor. Curabitur congue est vitae enim venenatis ornare. Vivamus justo odio, consectetur at dignissim quis, vulputate eu erat. Aliquam finibus luctus erat, vel varius nulla faucibus non. Integer et magna tempor, elementum tellus vitae, viverra ex. Suspendisse et bibendum velit, eu tincidunt dolor. Curabitur euismod ut libero eu lacinia. Pellentesque a nisl ante. Aenean sed lobortis leo. Etiam laoreet luctus ligula auctor convallis. Nulla maximus, eros in auctor accumsan, diam lectus porttitor nunc, consequat tempus quam augue id erat.

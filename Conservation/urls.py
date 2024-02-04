@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from ConservationForum.views import HomeView, SpeciesView, ForumView, AddPostView
+from accounts import views as account_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,9 @@ urlpatterns = [
     path('species/', SpeciesView.as_view(), name='specList'),
     path('forum', ForumView.as_view(), name='forum'),
     path('addpost', AddPostView.as_view(), name='addPost'),
+    path('login/', account_view.LoginView.as_view(), name='login_view'),
+    path('logout/', account_view.LogoutView.as_view(), name='logout_view'),
+    path('signup/', account_view.RegisterView.as_view(), name='register_view'),
 ]
 
 if settings.DEBUG:
