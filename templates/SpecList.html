@@ -10,17 +10,21 @@
                 <input type="submit" value="filter">
             </form>
         {%  endif %}
+
         <ul class="list-group">
-        {%  for animal in object_list %}
+        {% for animal in object_list %}
             <li class="list-group-item ">
                 <strong class="test">{{ animal }}</strong>
                 <p>Population: {{ animal.population }}</p>
                 <p>Description: {{ animal.description }}</p>
                 <p>Extintion Level: {{ animal.extinction_level.name }}</p>
 
-{#                <img src="{{ MEDIA_URL }}speciesloop/{{animal.name|urlencode }}.jpg">#}
-                  <img src="{% static 'media/speciesloop/'|add:animal.name|urlencode %}.jpg">
-                    
+{#              <img src="{{ MEDIA_URL }}speciesloop/{{animal.name|urlencode }}.jpg">#}
+                <img src="{% static 'media/speciesloop/'|add:animal.name|urlencode %}.jpg">
+
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'alter_species' pk=animal.pk  %}">Edit</a>
+                {% endif %}
             </li>
         {% endfor %}
 

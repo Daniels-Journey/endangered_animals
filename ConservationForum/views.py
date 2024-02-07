@@ -1,7 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views import View
 from ConservationForum.models import Species, Post
-from ConservationForum.forms import AddPostForm, SpeciesSearchForm
+from ConservationForum.forms import AddPostForm, SpeciesSearchForm, AlterSpeciesForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -37,26 +39,51 @@ class SpeciesView(ListView):
         return queryset
 
 
-    # def get(self,request):
-    #     species = Species.objects.all()
-    #     form = SpeciesSearchForm(request.GET)
-    #     if form.is_valid():
-    #         name = form.cleaned_data['name']
-    #         species = species.filter(name__icontains=name)
-    #
-    #     return render(request, 'SpecList.html', context={'names':species, 'form': form})
+class ForumView(ListView):
+
+    model = Post
+    template_name = 'Forum.html'
+    context_object_name = 'forum_list'
+    def get_queryset(self):
+        return super().get_queryset()
 
 
-class ForumView(View):
-    def get(self, request):
-        return render(request, 'Forum.html')
-
-
-class AddPostView(CreateView):
+class AddPostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = AddPostForm
     template_name = 'AddPost.html'
     success_url = reverse_lazy('addPost')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class AlterSpecies(LoginRequiredMixin, UpdateView):
+    model=Species
+    form_class = AlterSpeciesForm
+    template_name = 'AlterSpecies.html'
+    success_url = reverse_lazy('specList')
+
+
+class DeletePostView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'DeletePost.html'  # Create a template for confirmation
+    success_url = reverse_lazy('forum')  # Redirect to the forum or other page after deletion
+
+    def get_object(self, queryset=None):
+        # Override get_object to check if the user is the owner or a superuser
+        obj = super().get_object(queryset)
+        if not (obj.user == self.request.user or self.request.user.is_superuser):
+            raise Http404("You don't have permission to delete this post.")
+        return obj
+
+
 
 
 # class PostView(View):

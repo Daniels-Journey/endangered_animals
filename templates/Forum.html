@@ -3,9 +3,22 @@
 
 {% block content %}
 
-    <h1>Wildlife Conservation Forum</h1>
+    <h1>Conservation Forum</h1>
 
-</ul>
+    <ul class="list-group">
+    {% for post in forum_list %}
+        <li class="group-list-item">
+            <strong>Category: {{ post.topic }}</strong>
+            <p>Message: {{ post.text }}</p>
+            <p>Date posted:{{ post.date }}</p>
+            <p>Species encountered: {{ post.species.name }}</p>
+            <p>Author: {{ post.user }}</p>
 
+            {% if post.user == request.user or request.user.is_superuser %}
+                <a href="{%  url 'delete_post' pk=post.pk %}">Delete</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
 
 {%  endblock %}
