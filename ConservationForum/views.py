@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
 from ConservationForum.models import Species, Post, Badge
@@ -14,6 +14,14 @@ class HomeView(View):
         form = UsernameForm()
         return render(request, 'home.html', {'form': form})
 
+    def post(self, request):
+        form = UsernameForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username_id']
+            url = reverse('add_badge', kwargs={'pk': username})
+            return HttpResponseRedirect(url)
+        else:
+            return render(request, 'home.html', {'form': form})
 
 class Gallery(View):
 
