@@ -12,7 +12,8 @@ class HomeView(View):
 
     def get(self, request):
         form = UsernameForm()
-        return render(request, 'home.html', {'form': form})
+        title = 'Home Page'
+        return render(request, 'home.html', {'form': form, 'Title': title})
 
     def post(self, request):
         form = UsernameForm(request.POST)
@@ -97,7 +98,10 @@ class BadgeView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        return super().form_valid(form)
+        user = self.request.user
+        user.first_name = form.cleaned_data['title']
+        user.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 

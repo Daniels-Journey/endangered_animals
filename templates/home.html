@@ -5,10 +5,10 @@
 
 
 
-    <h2 class="subtitle2">Welcome, {% if user.is_authenticated %} {{  user.username }}! {% else %}dear Stranger!</h2>{% endif %}
+    <h4 class="subtitle2">Welcome, {% if user.is_authenticated %} {{  user.username }}! {% else %}dear Stranger!</h4>{% endif %}
 
     {% if request.user.is_superuser %}
-    <form method="POST">
+    <form class="smaller" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Award Badge</button>

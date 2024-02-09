@@ -1,5 +1,6 @@
 import pytest
 from django.contrib.auth.models import User
+from django.test import Client
 
 from ConservationForum.models import Badge, Species, Post, Topic, ExtinctionLevel
 
@@ -48,3 +49,19 @@ def species_length():
         Species.objects.create(name="Species name 2", population=500, description="Your species description 2", extinction_level=extinct)
         ]
     return lista
+
+
+@pytest.fixture
+def logged_in_client():
+    client = Client()
+    user = User.objects.create_user(username='test', password='<PASSWORD>')
+    client.login(username='test', password='<PASSWORD>')
+    return client
+
+
+@pytest.fixture
+def logged_in_superuser():
+    client = Client()
+    superuser = User.objects.create_superuser(username='admin', password='adminpassword')
+    client.login(username='admin', password='adminpassword')
+    return client
