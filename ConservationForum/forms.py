@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from ConservationForum.models import Topic, Species, Post, ExtinctionLevel
+from ConservationForum.models import Topic, Species, Post, ExtinctionLevel, Badge
+
 
 # Inny zapis
 # class PostForm(forms.Form):
@@ -37,4 +38,14 @@ class AlterSpeciesForm(forms.ModelForm):
         model = Species
         fields = '__all__'
 
+
+class AddBadgeForm(forms.ModelForm):
+
+    class Meta:
+        model = Badge
+        fields = ['title']
+
+
+class UsernameForm(forms.Form):
+    username_id = forms.IntegerField(label='Username ID')
 

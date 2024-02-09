@@ -2,19 +2,24 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views import View
-from ConservationForum.models import Species, Post
-from ConservationForum.forms import AddPostForm, SpeciesSearchForm, AlterSpeciesForm
-from django.urls import reverse_lazy
+from ConservationForum.models import Species, Post, Badge
+from ConservationForum.forms import AddPostForm, SpeciesSearchForm, AlterSpeciesForm, AddBadgeForm, UsernameForm
+from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
 class HomeView(View):
-    HomeData = {
-        "Title": "Home Page"
 
-    }
     def get(self, request):
-        return render(request, 'home.html', context=self.HomeData)
+        form = UsernameForm()
+        return render(request, 'home.html', {'form': form})
+
+
+class Gallery(View):
+
+    def get(self, request):
+        return render(request, 'galeria.html')
+
 
 
 class SpeciesView(ListView):
@@ -64,11 +69,28 @@ class AddPostView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+class FaqView(View):
+
+    def get(self, request):
+        return render(request, 'faq.html')
+
+
 class AlterSpecies(LoginRequiredMixin, UpdateView):
     model=Species
     form_class = AlterSpeciesForm
     template_name = 'AlterSpecies.html'
     success_url = reverse_lazy('specList')
+
+
+class BadgeView(LoginRequiredMixin, UpdateView):
+    model=Badge
+    form_class = AddBadgeForm
+    template_name = 'addbadge.html'
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
 
 
 class DeletePostView(LoginRequiredMixin, DeleteView):

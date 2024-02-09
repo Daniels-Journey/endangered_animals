@@ -11,24 +11,26 @@
 </head>
 <body>
 <div class="container">
-<nav class="decoration">
-    <ul class="list-group">
-        <li class="list-group-item"><a href="{% url 'home' %}">Home Page</a></li>
-        <li class="list-group-item"><a href="{% url 'specList' %}">Endangered Species List</a></li>
-        <li class="list-group-item"><a href="{% url 'forum' %}">Forum</a></li>
-        <li class="list-group-item"><a href="{% url 'addPost' %}">Add your post</a></li>
+<nav class="decoration ">
+    <ul class="list-group test ">
+        <li class="list-group-item menu1"><a class="menu1link" href="{% url 'home' %}">Home Page</a></li>
+        <li class="list-group-item menu1"><a class="menu1link" href="{% url 'specList' %}">Endangered Species List</a></li>
+        <li class="list-group-item menu1"><a class="menu1link" href="{% url 'forum' %}">Forum</a></li>
+        <li class="list-group-item menu1"><a class="menu1link" href="{% url 'addPost' %}">Add your post</a></li>
+        <li class="list-group-item menu1"><a class="menu1link" href="{% url 'gallery' %}">Gallery</a></li>
     </ul>
 </nav>
 
 <div id="content">
+<h1 class="maintitle">Wildlife Biodiversity Project {% if not user.is_authenticated %}<a class="mainlink" href="{% url 'login_view' %}">Login</a> <a class="mainlink" href="{% url 'register_view' %}">Register</a>{% endif %}{% if user.is_authenticated %}<a class="mainlink" href="{% url 'logout_view' %}">Logout</a>{% endif %}</h1>
     {% block content %}
 
     {% endblock %}
 </div>
 
 
-<footer>
-    <p>&copy; 2024 Django Project "Wildlife Biodiversity Project". All rights reserved by Daniel Odoj.</p>
+<footer >
+    <p class="foot">&copy; 2024 Django Project "Wildlife Biodiversity Project". All rights reserved by Daniel Odoj.<a class="normlink" href="{% url 'faq' %}">Frequently Asked Questions</a></p>
 </footer>
 
 <!-- Add any additional scripts or libraries here -->

@@ -2,18 +2,34 @@
 {% load static %}
 {% block content %}
 
-    <h1>Welcome to Wildlife Biodiversity Project, {% if user.is_authenticated %} {{  user.username }}! <a href="{% url 'logout_view' %}">Logout</a>{% else %}dear Stranger! <a href="{% url 'login_view' %}">Login</a> <a href="{% url 'register_view' %}">Register</a>{% endif %}</h1>
 
-    <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse elementum risus sed mauris vulputate varius. Integer ac velit nulla. Curabitur lobortis ornare cursus. Nulla sed velit in lacus aliquet pellentesque. Cras laoreet tempor velit, ut placerat massa sodales sed. Proin scelerisque mattis mauris vel tempor. Curabitur congue est vitae enim venenatis ornare. Vivamus justo odio, consectetur at dignissim quis, vulputate eu erat. Aliquam finibus luctus erat, vel varius nulla faucibus non. Integer et magna tempor, elementum tellus vitae, viverra ex. Suspendisse et bibendum velit, eu tincidunt dolor. Curabitur euismod ut libero eu lacinia. Pellentesque a nisl ante. Aenean sed lobortis leo. Etiam laoreet luctus ligula auctor convallis. Nulla maximus, eros in auctor accumsan, diam lectus porttitor nunc, consequat tempus quam augue id erat.
 
-Aenean lacus leo, porta vitae sem sit amet, maximus faucibus risus. Nullam et enim sed orci condimentum dignissim. Proin luctus massa urna, non mattis dolor viverra non. Ut malesuada pretium sem, sagittis varius felis euismod non. Cras quis venenatis diam, mattis molestie lorem. Praesent pulvinar neque vel diam vehicula, ut vehicula nibh dapibus. Donec eget magna ut orci suscipit hendrerit ac nec mauris. Nullam lectus dui, dapibus vitae neque eu, consequat egestas quam. Suspendisse sollicitudin odio elit, ut porta velit aliquet vel. Maecenas neque est, dignissim vel pulvinar a, aliquam a enim. Aenean vulputate eros quis elit gravida, ac suscipit nunc vestibulum. Fusce molestie varius bibendum. Donec tincidunt metus facilisis velit interdum scelerisque. Curabitur accumsan tortor tincidunt massa rhoncus, in suscipit velit congue. Sed ac sollicitudin tortor.
 
-In hac habitasse platea dictumst. Nullam sollicitudin erat quam, sit amet eleifend lorem fermentum a. Vestibulum non vulputate nulla. Vivamus nunc risus, imperdiet sed euismod quis, cursus vitae orci. Donec pretium elementum justo vitae porta. Nullam dignissim dolor vitae ullamcorper tincidunt. Aenean ornare maximus sodales. Pellentesque efficitur porta varius. Nunc ligula tortor, condimentum id condimentum id, convallis et sem.
+    <h2 class="subtitle2">Welcome, {% if user.is_authenticated %} {{  user.username }}! {% else %}dear Stranger!</h2>{% endif %}
+
+    {% if request.user.is_superuser %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Award Badge</button>
+    </form>
+    {% endif %}
+    <p class="hometext">
+    Welcome to the Wildlife Biodiversity Project page, where our mission is to make a difference in the lives of endangered animals and contribute to the preservation of biodiversity worldwide.
+<br>
+In today's rapidly changing world, countless species face the threat of extinction due to habitat destruction, poaching, climate change, and other human-induced factors. At Wildlife Biodiversity Project, we recognize the urgency of this situation and are committed to taking action. Through our research, conservation efforts, and public awareness campaigns, we strive to protect and restore ecosystems, ensuring a sustainable future for all living beings.
+<br>
+Our team of dedicated scientists, conservationists, and volunteers works tirelessly to study endangered species and their habitats, identifying key threats and implementing effective conservation strategies. From conducting field surveys to establishing protected areas, we are actively involved in safeguarding some of the planet's most vulnerable creatures, from majestic big cats to tiny endangered insects.
+<br><br>
+Education and outreach are fundamental components of our work. We believe that raising awareness about the importance of biodiversity and the interconnectedness of all life forms is crucial for inspiring positive change. Through school programs, community workshops, and online resources, we empower individuals of all ages to become advocates for wildlife conservation and take meaningful action to protect our planet's precious natural heritage.
+<br>
+Collaboration is at the heart of everything we do. We partner with local communities, government agencies, non-profit organizations, and other stakeholders to maximize our impact and ensure the long-term success of our projects. By fostering cooperation and sharing knowledge and resources, we can achieve far greater results than we could alone.
+<br>
+Together, we have the power to make a difference. Join us in our efforts to safeguard endangered animals and preserve the rich tapestry of life on Earth for future generations. Together, we can create a world where all species thrive in harmony with nature. Welcome to the Wildlife Biodiversity Project – together, let's make a positive impact on the planet we call home.
     </p>
 
-    <div>
-    <img src="{% static 'image_processing20190402-4-3ssid9.jpg' %}">
-</div>
+    <div class="pics1">
+    <img src="{% static 'WRTSLGWUYRPP3KQLSAQMFMU3SE.jpg' %}">
+    </div>
 
 {%  endblock %}

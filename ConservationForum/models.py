@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 
 # Create your models here.
+
 
 class ExtinctionLevel(models.Model):
     name = models.CharField(max_length=64)

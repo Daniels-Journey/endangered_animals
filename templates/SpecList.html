@@ -14,20 +14,18 @@
         <ul class="list-group">
         {% for animal in object_list %}
             <li class="list-group-item ">
-                <strong class="test">{{ animal }}</strong>
-                <p>Population: {{ animal.population }}</p>
-                <p>Description: {{ animal.description }}</p>
-                <p>Extintion Level: {{ animal.extinction_level.name }}</p>
+                <strong class="headers">{{ animal }}</strong>
+                {% if request.user.is_superuser %}
+                    <a class="normlink" href="{% url 'alter_species' pk=animal.pk  %}">Edit</a>
+                {% endif %}
+                <p class="subheaders">Population: {{ animal.population }}</p>
+                <p class="subheaders">Extintion Level: {{ animal.extinction_level.name }}</p>
+                <p class="spectext">Description: {{ animal.description }}</p>
 
 {#              <img src="{{ MEDIA_URL }}speciesloop/{{animal.name|urlencode }}.jpg">#}
-                <img src="{% static 'media/speciesloop/'|add:animal.name|urlencode %}.jpg">
-
-                {% if request.user.is_superuser %}
-                    <a href="{% url 'alter_species' pk=animal.pk  %}">Edit</a>
-                {% endif %}
+                <img  src="{% static 'media/speciesloop/'|add:animal.name|urlencode %}.jpg">
             </li>
         {% endfor %}
-
         </ul>
 
 {%  endblock %}

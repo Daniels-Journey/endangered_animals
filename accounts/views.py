@@ -1,5 +1,9 @@
 from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from accounts.forms import LoginForm, SignUpForm
 
@@ -40,6 +44,16 @@ class RegisterView(View):
     def post(self,request):
         signupform = SignUpForm(request.POST)
         if signupform.is_valid():
+            username = signupform.cleaned_data.get('username')
+            email = signupform.cleaned_data.get('email')
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'This username is already in use.')
+                return redirect('register_view')
+
+            if User.objects.filter(email=email).exists():
+                error_message = 'This email is already in use.'
+                return redirect(reverse('register_view') + '?error=' + error_message)
+
             user = signupform.save(commit=False)
             user.set_password(signupform.cleaned_data.get('password'))
             user.save()

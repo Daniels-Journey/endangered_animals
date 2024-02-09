@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from ConservationForum.views import HomeView, SpeciesView, ForumView, AddPostView, AlterSpecies, DeletePostView
+from ConservationForum.views import HomeView, BadgeView, SpeciesView, ForumView, AddPostView, AlterSpecies, DeletePostView, Gallery, FaqView
 from accounts import views as account_view
 
 urlpatterns = [
@@ -32,6 +32,9 @@ urlpatterns = [
     path('signup/', account_view.RegisterView.as_view(), name='register_view'),
     path('alter_species/<int:pk>/', AlterSpecies.as_view(), name='alter_species'),
     path('post/<int:pk>/delete/', DeletePostView.as_view(), name='delete_post'),
+    path('gallery/', Gallery.as_view(), name='gallery'),
+    path('faq/', FaqView.as_view(), name='faq'),
+    path('addbadge/<int:pk>/', BadgeView.as_view(), name='add_badge'),
 ]
 
 if settings.DEBUG:
